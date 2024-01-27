@@ -1,0 +1,22 @@
+# Build
+build/
+build.txt
+
+# Playground
+playground
+
+# Container Data
+postgres-data
+pgadmin-data
+redis-data
+
+# Environment
+.env
+
+# MacOS
+**/.DS_Store
+*.dSYM.zip
+*.dSYM
+
+# Python
+**/__pycache__
