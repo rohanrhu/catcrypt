@@ -22,10 +22,13 @@ typedef void (*catcrypt_ref_free_f_t)(void*);
     catcrypt_ref_counted_use(&(obj->ref_counted));
 
 #define CATCRYPT_REF_COUNTED_LEAVE(obj) \
-    catcrypt_util_verbose("Dereferencing: %s\n", #obj); \
-    \
-    if (obj != NULL) { \
-        catcrypt_ref_counted_leave((void **) (&(obj)), &(obj->ref_counted)); \
+    { \
+        catcrypt_util_verbose("Dereferencing: %s\n", #obj); \
+        __typeof__(obj) derefing = obj; \
+        \
+        if (obj != NULL) { \
+            catcrypt_ref_counted_leave((void **) (&(derefing)), &(derefing->ref_counted)); \
+        } \
     }
 
 #define REF_COUNTEDIFY() \
