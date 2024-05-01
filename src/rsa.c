@@ -114,6 +114,8 @@ void catcrypt_rsa_random_prime(mpz_t num) {
     while (!mpz_probab_prime_p(num, CATCRYPT_RSA_PRIME_REPS)) {
         mpz_add_ui(num, num, 2);
     }
+
+    mpz_clear(to_add);
 }
 
 catcrypt_rsa_key_t* catcrypt_rsa_key_new() {
@@ -193,6 +195,8 @@ catcrypt_rsa_keypair_t* catcrypt_rsa_keypair_new() {
     mpz_clear(phi);
     mpz_clear(e);
     mpz_clear(d);
+    mpz_clear(pmo);
+    mpz_clear(qmo);
 
     return keypair;
 }
@@ -268,6 +272,9 @@ catcrypt_rsa_encrypted_t* catcrypt_rsa_encrypt(catcrypt_string_t* data, catcrypt
         free(c_str);
     }
 
+    mpz_clear(m);
+    mpz_clear(c);
+
     CATCRYPT_REF_COUNTED_LEAVE(data);
     CATCRYPT_REF_COUNTED_LEAVE(pubkey);
 
@@ -300,6 +307,9 @@ catcrypt_string_t* catcrypt_rsa_decrypt(catcrypt_rsa_encrypted_t* encrypted, cat
         index += sizeof(size_t);
         index += to_decrypt;
     }
+
+    mpz_clear(c);
+    mpz_clear(m);
 
     CATCRYPT_REF_COUNTED_LEAVE(encrypted);
     CATCRYPT_REF_COUNTED_LEAVE(privkey);
