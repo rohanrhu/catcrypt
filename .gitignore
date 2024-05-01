@@ -1,8 +1,13 @@
 thirdparty/
+*.o
 
 # Build
 build/
 build.txt
+
+# Examples
+
+examples/**/*.exe
 
 # Playground
 playground
